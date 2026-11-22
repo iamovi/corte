@@ -6,7 +6,7 @@ Designed by **[Hasan Ovi](https://github.com/iamovi)**.
 
 ---
 
-## ⚡ Quick CDN Setup
+## Quick CDN Setup
 
 Add this line directly into your HTML `<head>`:
 
@@ -24,7 +24,7 @@ body {
 
 ---
 
-## 💻 Self-Hosting
+## Self-Hosting
 
 1. Copy the `fonts/` folder to your project.
 2. Add the font-face definition to your CSS:
@@ -40,13 +40,13 @@ body {
 
 ---
 
-## 🌐 Live Specimen
+## Live Specimen
 
 Test the font in your browser:  
 [https://iamovi.github.io/facet/](https://iamovi.github.io/facet/)
 
 ---
 
-## 📄 License
+## License
 
 Released under the [SIL Open Font License 1.1](LICENSE). Free for personal and commercial use.
