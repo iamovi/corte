@@ -1,7 +1,7 @@
 @font-face {
-  font-family: "Facet";
-  src: url("../fonts/Facet-Regular.woff2") format("woff2"),
-       url("../fonts/Facet-Regular.ttf") format("truetype");
+  font-family: "Corte";
+  src: url("../fonts/Corte-Regular.woff2") format("woff2"),
+       url("../fonts/Corte-Regular.ttf") format("truetype");
   font-display: swap;
 }
 
@@ -21,7 +21,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--fg);
-  font-family: "Facet", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Corte", "Helvetica Neue", Arial, sans-serif;
   font-size: 18px;
   line-height: 1.5;
 }
@@ -98,6 +98,3 @@ input[type="range"] { accent-color: var(--fg); width: min(260px, 60vw); }
   line-height: 1.6;
 }
 .downloads { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 0; }
-
-footer .wrap { padding-top: 32px; padding-bottom: 48px; font-size: 16px; }
-footer p { margin: 0; max-width: 62ch; }

@@ -1,6 +1,6 @@
-# Facet
+# Corte
 
-Facet is a bold sans-serif typeface built from straight strokes, flat ends, and cut corners. It holds its shape at large sizes and stays clear in short lines of display text.
+Corte is an original bold sans-serif typeface built from straight strokes, flat ends, and cut corners. It holds its shape at large sizes and stays clear in short lines of display text.
 
 Designed by **[Hasan Ovi](https://github.com/iamovi)**.
 
@@ -11,14 +11,14 @@ Designed by **[Hasan Ovi](https://github.com/iamovi)**.
 Add this line directly into your HTML `<head>`:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iamovi/facet@1.0.0/css/facet.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iamovi/corte@1.0.0/css/corte.css">
 ```
 
 Apply it in your CSS:
 
 ```css
 body {
-  font-family: "Facet", sans-serif;
+  font-family: "Corte", sans-serif;
 }
 ```
 
@@ -31,9 +31,9 @@ body {
 
 ```css
 @font-face {
-  font-family: "Facet";
-  src: url("fonts/Facet-Regular.woff2") format("woff2"),
-       url("fonts/Facet-Regular.ttf") format("truetype");
+  font-family: "Corte";
+  src: url("fonts/Corte-Regular.woff2") format("woff2"),
+       url("fonts/Corte-Regular.ttf") format("truetype");
   font-display: swap;
 }
 ```
@@ -43,7 +43,7 @@ body {
 ## Live Specimen
 
 Test the font in your browser:  
-[https://iamovi.github.io/facet/](https://iamovi.github.io/facet/)
+[https://iamovi.github.io/corte/](https://iamovi.github.io/corte/)
 
 ---
 
