@@ -6,6 +6,8 @@ Four styles: **Regular**, **Italic**, **Bold**, **Bold Italic**.
 
 Designed by **[Hasan Ovi](https://github.com/iamovi)**.
 
+![Corte specimen: Regular, Italic, Bold and Bold Italic alphabets](fonts/corte-specimen.png)
+
 ---
 
 ## Styles
