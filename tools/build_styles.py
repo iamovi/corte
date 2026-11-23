@@ -32,8 +32,8 @@ FONTS = os.path.join(ROOT, "fonts")
 
 # ---------------------------------------------------------------- metadata
 FAMILY = "Corte"
-VERSION = 1.1
-VERSION_STR = "Version 1.100"
+VERSION = 1.101
+VERSION_STR = "Version 1.101"
 COPYRIGHT = (
     'Copyright (c) 2026, Hasan Ovi (https://github.com/iamovi), '
     'with Reserved Font Name "Corte".'
@@ -95,6 +95,10 @@ def glyph_to_shape(glyph):
     shape = unary_union(outers)
     if holes:
         shape = shape.difference(unary_union(holes))
+        # an outer contour nested inside a hole is an island, e.g. the c inside the copyright sign
+        for outer in outers:
+            if any(outer.within(hole) for hole in holes):
+                shape = shape.union(outer)
     return shape
 
 

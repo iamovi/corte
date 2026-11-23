@@ -19,6 +19,8 @@ Designed by **[Hasan Ovi](https://github.com/iamovi)**.
 
 Each style ships as `.woff2` (web) and `.ttf` (desktop install).
 
+Character set: `A–Z`, `a–z`, `0–9`, common punctuation (including en and em dashes, curly quotes and the ellipsis), `©` and `·`.
+
 ---
 
 ## Quick CDN Setup
@@ -26,7 +28,7 @@ Each style ships as `.woff2` (web) and `.ttf` (desktop install).
 Add this line directly into your HTML `<head>`. It declares all four styles; the browser only downloads the ones your page actually uses.
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iamovi/corte@1.1.0/css/corte.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iamovi/corte@1.1.1/css/corte.css">
 ```
 
 Apply it in your CSS:
@@ -104,7 +106,7 @@ Test the font in your browser:
 Regular is the master. Italic, Bold and Bold Italic are generated from it, and the copyright and license notice are written into each font's `name` table.
 
 ```bash
-pip install fonttools brotli shapely
+pip install fonttools brotli numpy shapely
 python tools/build_styles.py
 ```
 

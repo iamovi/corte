@@ -100,6 +100,7 @@ input[type="range"] { accent-color: var(--fg); width: min(260px, 60vw); }
   cursor: pointer;
   padding: 0;
 }
+.grid .cell-fill { background: var(--bg); aspect-ratio: 1; }
 .grid button:hover, .grid button:focus-visible { background: var(--fg); color: var(--bg); outline: none; }
 .hint { margin: 16px 0 0; font-size: 16px; }
 

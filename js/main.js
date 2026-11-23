@@ -5,7 +5,7 @@
   var start = stage.textContent;
 
   var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" +
-              ".,:;!?-\u2013\u2014'\"\u2018\u2019\u201C\u201D()/+=_\u2026";
+              ".,:;!?-\u2013\u2014'\"\u2018\u2019\u201C\u201D()/+=_\u2026\u00A9\u00B7";
 
   chars.split("").forEach(function (ch) {
     var b = document.createElement("button");
@@ -18,6 +18,25 @@
     });
     grid.appendChild(b);
   });
+
+  function fillLastRow() {
+    var cols = getComputedStyle(grid).gridTemplateColumns.split(" ").filter(Boolean).length;
+    if (!cols) return;
+    var count = grid.querySelectorAll("button").length;
+    var missing = (cols - (count % cols)) % cols;
+    var fillers = grid.querySelectorAll(".cell-fill");
+    if (fillers.length === missing) return;
+    fillers.forEach(function (n) { n.remove(); });
+    for (var i = 0; i < missing; i++) {
+      var d = document.createElement("span");
+      d.className = "cell-fill";
+      d.setAttribute("aria-hidden", "true");
+      grid.appendChild(d);
+    }
+  }
+  fillLastRow();
+  if (window.ResizeObserver) new ResizeObserver(fillLastRow).observe(grid);
+  else window.addEventListener("resize", fillLastRow);
 
   var buttons = document.querySelectorAll("#styleSwitch button");
   buttons.forEach(function (btn) {
