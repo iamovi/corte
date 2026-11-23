@@ -249,6 +249,10 @@ def set_flags(font, weight, bold, italic):
         sel |= 0x40                     # REGULAR
     os2.fsSelection = sel
     os2.achVendID = "NONE"
+    # Windows/Word read these to decide which text the font can display;
+    # all zeros made Word fall back to another font for plain Latin text.
+    os2.ulCodePageRange1 = 0x00000001   # Latin 1 (Windows 1252)
+    os2.ulCodePageRange2 = 0x00000000
     os2.sxHeight, os2.sCapHeight = 500, 700
     os2.panose.bFamilyType = 2
     os2.panose.bSerifStyle = 11
