@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Corte</title>
-<meta name="description" content="Corte is a sans-serif typeface built from straight strokes, flat ends and cut corners. Regular, Italic, Bold and Bold Italic. Free under the SIL Open Font License.">
+<meta name="description" content="Corte is a sans-serif typeface built from straight strokes, flat ends and cut corners. Thin, Thin Italic, Regular, Italic, Bold and Bold Italic. Free under the SIL Open Font License.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Cpath d='M74 22H42L26 38v24l16 16h32v-12H46l-8-8V42l8-8h28z' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="preload" href="fonts/Corte-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/Corte-Bold.woff2" as="font" type="font/woff2" crossorigin>
@@ -31,6 +31,8 @@
       <h1 class="stage" id="stage" contenteditable="true" spellcheck="false" role="textbox" aria-label="Type here to test the font">Corte</h1>
       <div class="controls">
         <div class="styles" id="styleSwitch" role="group" aria-label="Font style">
+          <button type="button" data-weight="300" data-style="normal" aria-pressed="false">Thin</button>
+          <button type="button" data-weight="300" data-style="italic" aria-pressed="false">Thin Italic</button>
           <button type="button" data-weight="400" data-style="normal" aria-pressed="true">Regular</button>
           <button type="button" data-weight="400" data-style="italic" aria-pressed="false">Italic</button>
           <button type="button" data-weight="700" data-style="normal" aria-pressed="false">Bold</button>
@@ -56,6 +58,14 @@
     <div class="wrap">
       <h2>Styles</h2>
       <div class="specimens">
+        <div>
+          <p class="label">Thin &middot; 300</p>
+          <p class="big w300">Quick zephyrs blow, vexing daft Jim.</p>
+        </div>
+        <div>
+          <p class="label">Thin Italic &middot; 300 italic</p>
+          <p class="big w300i">Quick zephyrs blow, vexing daft Jim.</p>
+        </div>
         <div>
           <p class="label">Regular &middot; 400</p>
           <p class="big w400">Quick zephyrs blow, vexing daft Jim.</p>
@@ -88,11 +98,13 @@
   <section id="use">
     <div class="wrap">
       <h2>Use it</h2>
-      <p class="lead">Corte is a family of four styles. Use it from the CDN or host the files yourself.</p>
+      <p class="lead">Corte is a family of six styles. Use it from the CDN or host the files yourself.</p>
 
       <table class="table">
         <thead><tr><th>Style</th><th>font-weight</th><th>font-style</th></tr></thead>
         <tbody>
+          <tr><td>Thin</td><td>300</td><td>normal</td></tr>
+          <tr><td>Thin Italic</td><td>300</td><td>italic</td></tr>
           <tr><td>Regular</td><td>400</td><td>normal</td></tr>
           <tr><td>Italic</td><td>400</td><td>italic</td></tr>
           <tr><td>Bold</td><td>700</td><td>normal</td></tr>
@@ -101,12 +113,28 @@
       </table>
 
       <h3>1. Quick CDN (recommended)</h3>
-      <p>Add this link tag inside your HTML <code>&lt;head&gt;</code>. It loads all four styles; browsers only download the ones your page uses.</p>
-      <pre class="code"><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iamovi/corte@1.1.1/css/corte.css"&gt;</code></pre>
+      <p>Add this link tag inside your HTML <code>&lt;head&gt;</code>. It loads all six styles; browsers only download the ones your page uses.</p>
+      <pre class="code"><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iamovi/corte@1.2.0/css/corte.css"&gt;</code></pre>
 
       <h3>2. Self-host</h3>
       <p>Copy the <code>fonts/</code> folder and add one <code>@font-face</code> per style (or just copy <code>css/corte.css</code>):</p>
       <pre class="code"><code>@font-face {
+  font-family: "Corte";
+  src: url("fonts/Corte-Thin.woff2") format("woff2"),
+       url("fonts/Corte-Thin.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Corte";
+  src: url("fonts/Corte-ThinItalic.woff2") format("woff2"),
+       url("fonts/Corte-ThinItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
   font-family: "Corte";
   src: url("fonts/Corte-Regular.woff2") format("woff2"),
        url("fonts/Corte-Regular.ttf") format("truetype");
@@ -146,19 +174,24 @@
 }
 
 h1, strong { font-weight: 700; }
+.thin      { font-weight: 300; }
 em         { font-style: italic; }
 .note      { font-weight: 700; font-style: italic; } /* Bold Italic */</code></pre>
 
       <h3>Install on your computer</h3>
-      <p>Download the <code>.ttf</code> files, open them and install. Word, Figma, Photoshop and the like list the family as <strong>Corte</strong> with Regular, Italic, Bold and Bold Italic.</p>
+      <p>Download the <code>.ttf</code> files, open them and install. Word, Figma, Photoshop and the like list the family as <strong>Corte</strong> with Thin, Thin Italic, Regular, Italic, Bold and Bold Italic.</p>
 
       <p class="downloads">
+        <a href="fonts/Corte-Thin.woff2" download>Corte-Thin.woff2</a>
+        <a href="fonts/Corte-ThinItalic.woff2" download>Corte-ThinItalic.woff2</a>
         <a href="fonts/Corte-Regular.woff2" download>Corte-Regular.woff2</a>
         <a href="fonts/Corte-Italic.woff2" download>Corte-Italic.woff2</a>
         <a href="fonts/Corte-Bold.woff2" download>Corte-Bold.woff2</a>
         <a href="fonts/Corte-BoldItalic.woff2" download>Corte-BoldItalic.woff2</a>
       </p>
       <p class="downloads">
+        <a href="fonts/Corte-Thin.ttf" download>Corte-Thin.ttf</a>
+        <a href="fonts/Corte-ThinItalic.ttf" download>Corte-ThinItalic.ttf</a>
         <a href="fonts/Corte-Regular.ttf" download>Corte-Regular.ttf</a>
         <a href="fonts/Corte-Italic.ttf" download>Corte-Italic.ttf</a>
         <a href="fonts/Corte-Bold.ttf" download>Corte-Bold.ttf</a>

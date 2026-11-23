@@ -75,6 +75,8 @@ input[type="range"] { accent-color: var(--fg); width: min(260px, 60vw); }
 .specimens > div:last-child { border-bottom: 0; }
 .specimens .label { margin: 0 0 8px; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: .02em; }
 .specimens .big { margin: 0; font-size: clamp(32px, 6vw, 64px); line-height: 1.1; overflow-wrap: anywhere; }
+.w300 { font-weight: 300; font-style: normal; }
+.w300i { font-weight: 300; font-style: italic; }
 .w400 { font-weight: 400; font-style: normal; }
 .w400i { font-weight: 400; font-style: italic; }
 .w700 { font-weight: 700; font-style: normal; }

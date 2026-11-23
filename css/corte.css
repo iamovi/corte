@@ -1,9 +1,25 @@
 /*!
- * Corte 1.1.1 — Regular, Italic, Bold, Bold Italic
+ * Corte 1.2.0 — Thin, Thin Italic, Regular, Italic, Bold, Bold Italic
  * Copyright (c) 2026, Hasan Ovi (https://github.com/iamovi),
  * with Reserved Font Name "Corte".
  * Licensed under the SIL Open Font License, Version 1.1 (https://openfontlicense.org)
  */
+@font-face {
+  font-family: "Corte";
+  src: url("../fonts/Corte-Thin.woff2") format("woff2"),
+       url("../fonts/Corte-Thin.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Corte";
+  src: url("../fonts/Corte-ThinItalic.woff2") format("woff2"),
+       url("../fonts/Corte-ThinItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
 @font-face {
   font-family: "Corte";
   src: url("../fonts/Corte-Regular.woff2") format("woff2"),

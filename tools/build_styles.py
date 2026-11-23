@@ -6,8 +6,11 @@ Build the Corte family from the Regular master.
     python tools/build_styles.py
 
 Reads  fonts/Corte-Regular.ttf  (the master, outlines are never changed)
-Writes fonts/Corte-{Regular,Italic,Bold,BoldItalic}.{ttf,woff2}
+Writes fonts/Corte-{Thin,ThinItalic,Regular,Italic,Bold,BoldItalic}.{ttf,woff2}
 
+- Thin        : outlines narrowed inward (stems 96 -> 72, bars 96 -> 72),
+                cap height, x-height, baseline and descender stay put.
+- Thin Italic : Thin sheared 10 degrees.
 - Bold        : outlines grown outward (stems 96 -> 136, bars 96 -> ~118),
                 cap height, x-height, baseline and descender stay put.
 - Italic      : Regular sheared 10 degrees (a slanted roman, not redrawn).
@@ -32,8 +35,8 @@ FONTS = os.path.join(ROOT, "fonts")
 
 # ---------------------------------------------------------------- metadata
 FAMILY = "Corte"
-VERSION = 1.101
-VERSION_STR = "Version 1.101"
+VERSION = 1.200
+VERSION_STR = "Version 1.200"
 COPYRIGHT = (
     'Copyright (c) 2026, Hasan Ovi (https://github.com/iamovi), '
     'with Reserved Font Name "Corte".'
@@ -55,6 +58,8 @@ VENDOR_URL = "https://iamovi.github.io/corte/"
 
 # (file style, subfamily, weight class, bold?, italic?)
 STYLES = [
+    ("Thin",       "Thin",        300, False, False),
+    ("ThinItalic", "Thin Italic", 300, False, True),
     ("Regular",    "Regular",     400, False, False),
     ("Italic",     "Italic",      400, False, True),
     ("Bold",       "Bold",        700, True,  False),
@@ -63,14 +68,17 @@ STYLES = [
 
 # ---------------------------------------------------------------- geometry
 DX, DY = 20, 14          # horizontal / vertical growth per side for Bold
+DX_T, DY_T = 12, 8       # horizontal / vertical narrowing per side for Thin
 SLANT = 10               # italic angle in degrees
 TAN = math.tan(math.radians(SLANT))
 MITRE = 6.0
 MIN_EDGE = 12            # collapse slivers shorter than this (font units)
 
-# y-remap keeps baseline, x-height, cap height and descender where they were
-_KX = [-1200 - DY, -200 - DY, -DY, 500 + DY, 700 + DY, 1700 + DY]
-_KY = [-1200, -200, 0, 500, 700, 1700]
+# y-remap keeps baseline, x-height, cap height, ascender and descender in place
+_KX = [-1200 - DY, -200 - DY, -DY, 500 + DY, 700 + DY, 760 + DY, 1700 + DY]
+_KY = [-1200, -200, 0, 500, 700, 760, 1700]
+_KX_T = [-1200 + DY_T, -200 + DY_T, DY_T, 500 - DY_T, 700 - DY_T, 760 - DY_T, 1700 - DY_T]
+_KY_T = [-1200, -200, 0, 500, 700, 760, 1700]
 
 
 def contours(glyph):
@@ -110,6 +118,13 @@ def embolden(shape):
     return Polygon_scale(grown, 1, 1 / k)
 
 
+def narrow(shape):
+    k = DX_T / DY_T
+    stretched = Polygon_scale(shape, 1, k)
+    eroded = stretched.buffer(-DX_T, join_style=2, mitre_limit=MITRE)
+    return Polygon_scale(eroded, 1, 1 / k)
+
+
 def Polygon_scale(geom, sx, sy):
     from shapely import affinity
     return affinity.scale(geom, xfact=sx, yfact=sy, origin=(0, 0))
@@ -117,6 +132,10 @@ def Polygon_scale(geom, sx, sy):
 
 def remap_y(y):
     return float(np.interp(y, _KX, _KY))
+
+
+def remap_y_thin(y):
+    return float(np.interp(y, _KX_T, _KY_T))
 
 
 def clean(ring_pts):
@@ -184,7 +203,7 @@ def shear_glyph(glyph):
 
 # ---------------------------------------------------------------- font prep
 def load_master():
-    return TTFont(os.path.join(FONTS, "Corte-Regular.ttf"), lazy=False)
+    return TTFont(os.path.join(FONTS, "Corte-Regular.ttf"), lazy=False, recalcTimestamp=False)
 
 
 def make_bold(font):
@@ -199,6 +218,21 @@ def make_bold(font):
         new = shape_to_glyph(shape, lambda x, y: (x + DX, remap_y(y)))
         glyf[name] = new
         hmtx[name] = (adv + 2 * DX, 0)
+    return font
+
+
+def make_thin(font):
+    """Narrow the outlines of `font` in place (Regular -> Thin)."""
+    glyf, hmtx = font["glyf"], font["hmtx"]
+    for name in font.getGlyphOrder():
+        g = glyf[name]
+        adv, _ = hmtx[name]
+        if g.numberOfContours == 0:
+            continue
+        shape = narrow(glyph_to_shape(g))
+        new = shape_to_glyph(shape, lambda x, y: (x - DX_T, remap_y_thin(y)))
+        glyf[name] = new
+        hmtx[name] = (adv - 2 * DX_T, 0)
     return font
 
 
@@ -237,7 +271,7 @@ def set_names(font, style, subfamily):
         name.setName(text, nid, 1, 0, 0)       # Macintosh, Roman, English
 
 
-def set_flags(font, weight, bold, italic):
+def set_flags(font, weight, bold, italic, regular):
     os2, head, hhea, post = font["OS/2"], font["head"], font["hhea"], font["post"]
 
     os2.version = 4
@@ -249,7 +283,7 @@ def set_flags(font, weight, bold, italic):
         sel |= 0x01
     if bold:
         sel |= 0x20
-    if not bold and not italic:
+    if regular:
         sel |= 0x40                     # REGULAR
     os2.fsSelection = sel
     os2.achVendID = "NONE"
@@ -260,7 +294,7 @@ def set_flags(font, weight, bold, italic):
     os2.sxHeight, os2.sCapHeight = 500, 700
     os2.panose.bFamilyType = 2
     os2.panose.bSerifStyle = 11
-    os2.panose.bWeight = 8 if bold else 5
+    os2.panose.bWeight = 8 if bold else (3 if weight < 400 else 5)
 
     head.macStyle = (1 if bold else 0) | (2 if italic else 0)
     head.fontRevision = VERSION
@@ -296,7 +330,7 @@ def finish(font, style):
 
     ttf = os.path.join(FONTS, f"{FAMILY}-{style}.ttf")
     font.save(ttf)
-    woff2 = TTFont(ttf)
+    woff2 = TTFont(ttf, recalcTimestamp=False)
     woff2.flavor = "woff2"
     woff2.save(os.path.join(FONTS, f"{FAMILY}-{style}.woff2"))
     return ttf
@@ -306,6 +340,8 @@ def main():
     master_bytes = os.path.getsize(os.path.join(FONTS, "Corte-Regular.ttf"))
     # every style starts from a fresh copy of the Regular master
     sources = {
+        "Thin": make_thin(load_master()),
+        "ThinItalic": make_italic(make_thin(load_master())),
         "Regular": load_master(),
         "Italic": make_italic(load_master()),
         "Bold": make_bold(load_master()),
@@ -314,7 +350,8 @@ def main():
     for style, sub, weight, is_bold, is_italic in STYLES:
         font = sources[style]
         set_names(font, style, sub)
-        set_flags(font, weight, is_bold, is_italic)
+        set_flags(font, weight, is_bold, is_italic,
+                  not is_bold and not is_italic and weight == 400)
         path = finish(font, style)
         print(f"wrote {os.path.relpath(path, ROOT)}  ({os.path.getsize(path)} bytes)")
     print(f"(Regular master was {master_bytes} bytes)")

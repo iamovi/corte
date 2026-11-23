@@ -2,11 +2,11 @@
 
 Corte is an original sans-serif typeface built from straight strokes, flat ends, and cut corners. It holds its shape at large sizes and stays clear in short lines of display text.
 
-Four styles: **Regular**, **Italic**, **Bold**, **Bold Italic**.
+Six styles: **Thin**, **Thin Italic**, **Regular**, **Italic**, **Bold**, **Bold Italic**.
 
 Designed by **[Hasan Ovi](https://github.com/iamovi)**.
 
-![Corte specimen: Regular, Italic, Bold and Bold Italic alphabets](fonts/corte-specimen.png)
+![Corte specimen: Thin, Thin Italic, Regular, Italic, Bold and Bold Italic alphabets](fonts/corte-specimen.png)
 
 ---
 
@@ -14,6 +14,8 @@ Designed by **[Hasan Ovi](https://github.com/iamovi)**.
 
 | Style       | `font-weight` | `font-style` | File                  |
 | ----------- | ------------- | ------------ | --------------------- |
+| Thin        | 300           | normal       | `Corte-Thin`          |
+| Thin Italic | 300           | italic       | `Corte-ThinItalic`    |
 | Regular     | 400           | normal       | `Corte-Regular`       |
 | Italic      | 400           | italic       | `Corte-Italic`        |
 | Bold        | 700           | normal       | `Corte-Bold`          |
@@ -27,10 +29,10 @@ Character set: `A–Z`, `a–z`, `0–9`, common punctuation (including en and e
 
 ## Quick CDN Setup
 
-Add this line directly into your HTML `<head>`. It declares all four styles; the browser only downloads the ones your page actually uses.
+Add this line directly into your HTML `<head>`. It declares all six styles; the browser only downloads the ones your page actually uses.
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iamovi/corte@1.1.1/css/corte.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iamovi/corte@1.2.0/css/corte.css">
 ```
 
 Apply it in your CSS:
@@ -42,6 +44,7 @@ body {
 }
 
 h1, strong { font-weight: 700; }
+.thin      { font-weight: 300; }
 em         { font-style: italic; }
 .note      { font-weight: 700; font-style: italic; } /* Bold Italic */
 ```
@@ -54,6 +57,22 @@ em         { font-style: italic; }
 2. Link the stylesheet, or paste the `@font-face` rules into your own CSS:
 
 ```css
+@font-face {
+  font-family: "Corte";
+  src: url("fonts/Corte-Thin.woff2") format("woff2"),
+       url("fonts/Corte-Thin.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Corte";
+  src: url("fonts/Corte-ThinItalic.woff2") format("woff2"),
+       url("fonts/Corte-ThinItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
 @font-face {
   font-family: "Corte";
   src: url("fonts/Corte-Regular.woff2") format("woff2"),
@@ -92,7 +111,7 @@ em         { font-style: italic; }
 
 ## Install on your computer
 
-Open the `.ttf` files and install them. Apps list the family as **Corte** with Regular, Italic, Bold and Bold Italic.
+Open the `.ttf` files and install them. Apps list the family as **Corte** with Thin, Thin Italic, Regular, Italic, Bold and Bold Italic.
 
 ---
 
@@ -105,15 +124,16 @@ Test the font in your browser:
 
 ## Building the styles
 
-Regular is the master. Italic, Bold and Bold Italic are generated from it, and the copyright and license notice are written into each font's `name` table.
+Regular is the master. Thin, Italic, Bold and Bold Italic are generated from it, and the copyright and license notice are written into each font's `name` table. Builds are byte-reproducible.
 
 ```bash
 pip install fonttools brotli numpy shapely
 python tools/build_styles.py
 ```
 
-- **Bold** grows the outlines (stems 96 → 136 units) while keeping baseline, x-height, cap height and descender in place.
-- **Italic** is Regular slanted 10° (a slanted roman, not redrawn letterforms). **Bold Italic** is Bold slanted 10°.
+- **Thin** narrows the outlines (stems 96 → 72 units) while keeping baseline, x-height, cap height, ascender and descender in place.
+- **Bold** grows the outlines (stems 96 → 136 units) with the same vertical metrics.
+- **Italic** is Regular slanted 10° (a slanted roman, not redrawn letterforms). **Thin Italic** is Thin slanted 10°, **Bold Italic** is Bold slanted 10°.
 
 ---
 
