@@ -19,6 +19,17 @@
     grid.appendChild(b);
   });
 
+  var buttons = document.querySelectorAll("#styleSwitch button");
+  buttons.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      stage.style.fontWeight = btn.getAttribute("data-weight");
+      stage.style.fontStyle = btn.getAttribute("data-style");
+      buttons.forEach(function (o) {
+        o.setAttribute("aria-pressed", o === btn ? "true" : "false");
+      });
+    });
+  });
+
   size.addEventListener("input", function () {
     stage.style.setProperty("--k", size.value / 100);
   });
